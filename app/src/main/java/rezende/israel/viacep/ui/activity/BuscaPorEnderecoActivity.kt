@@ -1,27 +1,24 @@
 package rezende.israel.viacep.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import rezende.israel.viacep.databinding.ActivityBuscaPorCepBinding
+import androidx.appcompat.app.AppCompatActivity
+import rezende.israel.viacep.databinding.ActivityBuscaPorEnderecoBinding
 
-class BuscaPorCepActivity : AppCompatActivity() {
+class BuscaPorEnderecoActivity : AppCompatActivity() {
 
     private val binding by lazy {
-        ActivityBuscaPorCepBinding.inflate(layoutInflater)
+        ActivityBuscaPorEnderecoBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
-        val botaoVoltar = binding.fabVoltarCep
+        val botaoVoltar = binding.fabVoltarEnd
 
         botaoVoltar.setOnClickListener{
             finish()
         }
 
-
     }
-
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroundviacep"
-    tools:context=".ui.activity.BuscaPorCepActivity">
+    tools:context=".ui.activity.BuscaPorEnderecoActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,9 +19,9 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="40dp"
                 android:fontFamily="@font/merienda_one"
-                android:text="Bem vindo a busca de endereços \npor CEP"
+                android:text="Bem vindo a busca de CEP \npor Endereço"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="20sp"
@@ -29,19 +29,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Insira abaixo um CEP válido de 8 dígitos:\n(Sem pontos e espaços, somente números!)"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="@+id/textView3"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -52,21 +39,66 @@
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:hintTextColor="@color/black"
-                app:layout_constraintEnd_toEndOf="@+id/textView4"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView3"
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
-                    android:hint="CEP"
-                    android:inputType="numberSigned"
-                    android:maxLength="8"
-                    android:textAlignment="center"
+                    android:hint="Logadouro (min 3 caracteres)"
+                    android:inputType="textCapWords"
                     android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout"
+                app:layout_constraintStart_toStartOf="@id/textInputLayout"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:hint="Cidade (min 3 caracteres)"
+                    android:inputType="textCapWords"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout3"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout2"
+                app:layout_constraintStart_toStartOf="@id/textInputLayout2"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout2"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:hint="UF"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="2"
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -75,11 +107,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:clickable="true"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-                app:srcCompat="@drawable/ic_baseline_done_outline_24"
-                tools:ignore="SpeakableTextPresentCheck" />
+
+                android:contentDescription="Confirmar"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+                app:srcCompat="@drawable/ic_baseline_done_outline_24" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -195,7 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="40dp"
                 android:text="Siafi:"
                 android:textColor="#000000"
                 android:textSize="16sp"
@@ -316,11 +349,10 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_voltar_cep"
+        android:id="@+id/fab_voltar_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -328,5 +360,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_action_voltar" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

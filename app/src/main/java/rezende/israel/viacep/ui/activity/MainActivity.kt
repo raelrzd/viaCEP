@@ -15,12 +15,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val intent = Intent(this, BuscaPorCepActivity::class.java)
+        val intentBuscaPorCep = Intent(this, BuscaPorCepActivity::class.java)
+        val intentBuscaPorEndereco = Intent(this, BuscaPorEnderecoActivity::class.java)
 
-        val botaoBuscaPorCep = binding.button
+        val botaoBuscaPorCep = binding.fabBuscaPorCep
+        val botaoBuscaPorEndereco = binding.fabBuscaPorEndereco
 
         botaoBuscaPorCep.setOnClickListener {
-            startActivity(intent)
+            startActivity(intentBuscaPorCep)
+        }
+
+        botaoBuscaPorEndereco.setOnClickListener{
+            startActivity(intentBuscaPorEndereco)
         }
 
 
