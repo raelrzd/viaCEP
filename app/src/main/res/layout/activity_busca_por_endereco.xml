@@ -50,7 +50,8 @@
                     android:backgroundTint="@color/black"
                     android:hint="Logadouro (min 3 caracteres)"
                     android:inputType="textCapWords"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -73,7 +74,8 @@
                     android:backgroundTint="@color/black"
                     android:hint="Cidade (min 3 caracteres)"
                     android:inputType="textCapWords"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -98,7 +100,8 @@
                     android:hint="UF"
                     android:inputType="textCapCharacters"
                     android:maxLength="2"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -107,7 +110,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:clickable="true"
-
                 android:contentDescription="Confirmar"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
@@ -238,7 +240,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/text_cep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -249,7 +251,7 @@
                 tools:text="conteudo cep" />
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/text_logradouro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -260,7 +262,7 @@
                 tools:text="conteudo logadouro" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/text_complemento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -271,7 +273,7 @@
                 tools:text="conteudo complemento" />
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/text_bairro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -282,7 +284,7 @@
                 tools:text="conteudo bairro" />
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/text_localidade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -293,7 +295,7 @@
                 tools:text="conteudo localidade" />
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/text_uf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -304,7 +306,7 @@
                 tools:text="conteudo UF" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/text_ibge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -315,7 +317,7 @@
                 tools:text="conteudo IBGE" />
 
             <TextView
-                android:id="@+id/textView22"
+                android:id="@+id/text_gia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -326,7 +328,7 @@
                 tools:text="conteudo GIA" />
 
             <TextView
-                android:id="@+id/textView23"
+                android:id="@+id/text_ddd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -337,7 +339,7 @@
                 tools:text="conteudo DDD" />
 
             <TextView
-                android:id="@+id/textView24"
+                android:id="@+id/text_siafi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

@@ -1,0 +1,31 @@
+package rezende.israel.viacep.webclient
+
+import rezende.israel.viacep.model.Cep
+
+class CepResposta (
+    val cep: String?,
+    val logradouro: String?,
+    val complemento: String?,
+    val bairro: String?,
+    val localidade: String?,
+    val uf: String?,
+    val ibge: String?,
+    val gia: String?,
+    val ddd: String?,
+    val siafi: String?
+        ){
+
+    val notaGet: Cep get() = Cep(
+        cep ?: "-",
+        logradouro ?: "-",
+        complemento ?: "-",
+        bairro ?: "-",
+        localidade ?: "-",
+        uf ?: "-",
+        ibge ?: "-",
+        gia ?: "-",
+        ddd ?: "-",
+        siafi ?: "-"
+    )
+
+}
