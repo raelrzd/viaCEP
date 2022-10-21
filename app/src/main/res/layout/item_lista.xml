@@ -238,4 +238,12 @@
         app:layout_constraintStart_toEndOf="@+id/textView14"
         tools:text="conteudo Siafi" />
 
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="3dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

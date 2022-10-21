@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import rezende.israel.viacep.databinding.ItemListaBinding
+import rezende.israel.viacep.extension.cepsNull
 import rezende.israel.viacep.extension.valida
 import rezende.israel.viacep.model.Cep
 import rezende.israel.viacep.webclient.CepResposta
 
-class ListaCepsAdapter(private val context: Context, ceps: List<Cep> = emptyList()) :
+class ListaCepsAdapter(private val context: Context) :
     RecyclerView.Adapter<ListaCepsAdapter.ViewHolder>() {
 
-    private val cepsList = ceps.toMutableList()
+    private val cepsList = cepsNull()
 
     class ViewHolder(
         private val binding: ItemListaBinding
@@ -44,9 +45,13 @@ class ListaCepsAdapter(private val context: Context, ceps: List<Cep> = emptyList
         return cepsList.size
     }
 
-    fun atualiza(ceps: List<Cep>){
-        this.cepsList.clear()
-        this.cepsList.addAll(ceps)
+    fun atualiza(ceps: List<Cep>?){
+        if (ceps!!.isEmpty()){
+            cepsList.addAll(cepsNull())
+        } else{
+            this.cepsList.clear()
+            this.cepsList.addAll(ceps!!)
+        }
         notifyDataSetChanged()
     }
 
