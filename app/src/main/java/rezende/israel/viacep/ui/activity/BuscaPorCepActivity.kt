@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
 import rezende.israel.viacep.databinding.ActivityBuscaPorCepBinding
+import rezende.israel.viacep.extension.valida
 import rezende.israel.viacep.model.Cep
 import rezende.israel.viacep.webclient.RetrofitInicializador
 
@@ -19,46 +20,17 @@ class BuscaPorCepActivity : AppCompatActivity() {
         ActivityBuscaPorCepBinding.inflate(layoutInflater)
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         configuraBotaoVoltar()
 
-        val cep = binding.textCep
-        val logradouro = binding.textLogradouro
-        val complemento = binding.textComplemento
-        val bairro = binding.textBairro
-        val localidade = binding.textLocalidade
-        val uf = binding.textUf
-        val ibge = binding.textIbge
-        val gia = binding.textGia
-        val ddd = binding.textDdd
-        val siafi = binding.textSiafi
-
-
-
-        val cepInserido = binding.inputCep
-        val botaoConfirma = binding.fabConfirma
-
-
-        botaoConfirma.setOnClickListener{
+            binding.fabConfirma.setOnClickListener{
             lifecycleScope.launch(IO) {
-                val call: Call<Cep> = RetrofitInicializador().cepService.buscaCep(cepInserido.text.toString())
-                val resposta: Response<Cep> = call.execute()
+                val resposta: Response<Cep> = buscaDadosNaApi()
                 resposta.body()?.let { ceps ->
                     launch(Main) {
-                        cep.text = valida(ceps.cep)
-                        logradouro.text = valida(ceps.logradouro)
-                        complemento.text = valida(ceps.complemento)
-                        bairro.text = valida(ceps.bairro)
-                        localidade.text = valida(ceps.localidade)
-                        uf.text = valida(ceps.uf)
-                        ibge.text = valida(ceps.ibge)
-                        gia.text = valida(ceps.gia)
-                        ddd.text = valida(ceps.ddd)
-                        siafi.text = valida(ceps.siafi)
+                        preencheCampos(ceps)
                         Toast.makeText(this@BuscaPorCepActivity, "Busca realizada com sucesso! ✅", Toast.LENGTH_SHORT).show()
                     }
                 } ?: launch(Main) {
@@ -66,16 +38,26 @@ class BuscaPorCepActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
+    private fun buscaDadosNaApi(): Response<Cep> {
+        val call: Call<Cep> =
+            RetrofitInicializador().cepService.buscaCep(binding.inputCep.text.toString())
+        val resposta: Response<Cep> = call.execute()
+        return resposta
+    }
 
-    fun valida(valor: String?) : String {
-        if (valor != "") {
-            return valor.toString()
-        } else {
-            return "-"
-        }
+    private fun preencheCampos(ceps: Cep) {
+        binding.textCep.text = valida(ceps.cep)
+        binding.textLogradouro.text = valida(ceps.logradouro)
+        binding.textComplemento.text = valida(ceps.complemento)
+        binding.textBairro.text = valida(ceps.bairro)
+        binding.textLocalidade.text = valida(ceps.localidade)
+        binding.textUf.text = valida(ceps.uf)
+        binding.textIbge.text = valida(ceps.ibge)
+        binding.textGia.text = valida(ceps.gia)
+        binding.textDdd.text = valida(ceps.ddd)
+        binding.textSiafi.text = valida(ceps.siafi)
     }
 
     private fun configuraBotaoVoltar() {

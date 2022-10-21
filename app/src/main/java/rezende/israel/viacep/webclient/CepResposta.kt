@@ -15,7 +15,7 @@ class CepResposta (
     val siafi: String?
         ){
 
-    val notaGet: Cep get() = Cep(
+    val cepGet: Cep get() = Cep(
         cep ?: "-",
         logradouro ?: "-",
         complemento ?: "-",

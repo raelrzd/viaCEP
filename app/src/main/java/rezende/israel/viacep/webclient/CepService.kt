@@ -10,4 +10,7 @@ interface CepService {
     @GET("{cep}/json/")
     fun buscaCep(@Path("cep") cep: String) : Call<Cep>
 
+    @GET("{uf}/{cidade}/{logradouro}/json/")
+    fun buscaEnderecos(@Path("uf") uf: String, @Path("cidade") cidade: String, @Path("logradouro") logradouro: String) : Call<List<CepResposta>>
+
 }
