@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'rezende.israel.viacep'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "rezende.israel.viacep"
         minSdk 22
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -55,4 +55,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha02"
 
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
+
+    implementation "io.insert-koin:koin-android:3.4.0"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+
 }

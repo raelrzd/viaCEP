@@ -10,5 +10,5 @@ data class Cep(
     val ibge: String?,
     val gia: String?,
     val ddd: String?,
-    val siafi: String?
+    val siafi: String?,
 )

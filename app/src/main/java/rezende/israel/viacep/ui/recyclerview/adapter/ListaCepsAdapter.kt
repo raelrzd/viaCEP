@@ -1,4 +1,4 @@
-package rezende.israel.viacep.model.recyclerview.adapter
+package rezende.israel.viacep.ui.recyclerview.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import rezende.israel.viacep.databinding.ItemListaBinding
 import rezende.israel.viacep.extension.cepsNull
 import rezende.israel.viacep.extension.valida
 import rezende.israel.viacep.model.Cep
-import rezende.israel.viacep.webclient.CepResposta
 
 class ListaCepsAdapter(private val context: Context) :
     RecyclerView.Adapter<ListaCepsAdapter.ViewHolder>() {
@@ -50,7 +49,7 @@ class ListaCepsAdapter(private val context: Context) :
             cepsList.addAll(cepsNull())
         } else{
             this.cepsList.clear()
-            this.cepsList.addAll(ceps!!)
+            this.cepsList.addAll(ceps)
         }
         notifyDataSetChanged()
     }

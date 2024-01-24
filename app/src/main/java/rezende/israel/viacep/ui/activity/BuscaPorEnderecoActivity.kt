@@ -1,95 +1,123 @@
 package rezende.israel.viacep.ui.activity
 
 import android.os.Bundle
-import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers.IO
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.Response
+import org.koin.android.ext.android.inject
 import rezende.israel.viacep.databinding.ActivityBuscaPorEnderecoBinding
 import rezende.israel.viacep.extension.cepsNull
-import rezende.israel.viacep.model.Cep
-import rezende.israel.viacep.model.recyclerview.adapter.ListaCepsAdapter
-import rezende.israel.viacep.webclient.CepResposta
-import rezende.israel.viacep.webclient.RetrofitInicializador
+import rezende.israel.viacep.model.CepResposta
+import rezende.israel.viacep.ui.recyclerview.adapter.ListaCepsAdapter
+import rezende.israel.viacep.ui.viewmodel.ActivitiesDeBuscaViewModel
 
 class BuscaPorEnderecoActivity : AppCompatActivity() {
 
-    private var ceps: List<Cep>? = null
-
+    private val viewModel: ActivitiesDeBuscaViewModel by inject()
     private val binding by lazy {
         ActivityBuscaPorEnderecoBinding.inflate(layoutInflater)
     }
-
     private val adapter by lazy {
         ListaCepsAdapter(this)
     }
 
-    private val cepService = RetrofitInicializador().cepService
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        val botaoVoltar = binding.fabVoltarEnd
         binding.recyclerview.adapter = adapter
-
         val logradouro = binding.inputLogradouro
         val cidade = binding.inputCidade
         val uf = binding.inputUf
+        configuraBotaoVoltar()
+        configuraBotaoVoltar(logradouro, cidade, uf)
+        configuraBotaoConfirma(uf, cidade, logradouro)
+    }
 
+    private fun configuraBotaoConfirma(
+        uf: TextInputEditText,
+        cidade: TextInputEditText,
+        logradouro: TextInputEditText,
+    ) {
+        binding.fabConfirma.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.buscaEndereco(
+                    uf.text.toString(),
+                    cidade.text.toString(),
+                    logradouro.text.toString(),
+                    completed = {
+                        val enderecoEncontrado = it.value
+                        if (uf.length() == 2 && cidade.length() >= 3 && logradouro.length() >= 3) {
+                            showLoading(show = true)
+                            if (enderecoEncontrado?.dado != null) {
+                                atualizaAdapter(enderecoEncontrado.dado)
+                            } else {
+                                showMessage(enderecoEncontrado?.erro)
+                            }
+                        } else {
+                            showMessage(enderecoEncontrado?.erro)
+                        }
+                    })
 
-
-        botaoVoltar.setOnClickListener {
-            finish()
+            }
         }
+    }
 
-        binding.fabBackspace.setOnClickListener{
+    private fun configuraBotaoVoltar(
+        logradouro: TextInputEditText,
+        cidade: TextInputEditText,
+        uf: TextInputEditText,
+    ) {
+        binding.fabBackspace.setOnClickListener {
             logradouro.text = null
             cidade.text = null
             uf.text = null
             uf.clearFocus()
-            ceps = cepsNull()
+            viewModel.listCepResposta.value = cepsNull()
             lifecycleScope.launch(Main) {
-                ceps.let {
+                viewModel.listCepResposta.value.let {
                     adapter.atualiza(ceps = it)
                 }
             }
         }
+    }
 
-        binding.fabConfirma.setOnClickListener {
-            if (uf.length() == 2 && cidade.length() >= 3 && logradouro.length() >= 3){
-                val call =
-                    cepService.buscaEnderecos(uf.text.toString(), cidade.text.toString(), logradouro.text.toString())
-                lifecycleScope.launch(IO) {
-                    launch(Main) {
-                        binding.loading.visibility = View.VISIBLE
-                        delay(2000)
-                        binding.loading.visibility = View.INVISIBLE
-                    }
-                    val resposta: Response<List<CepResposta>> = call.execute()
-                    resposta.body()?.let { cepResposta ->
-                        ceps = cepResposta.map {
-                            it.cepGet
-                        }
-                    }
-                    launch(Main) {
-                        ceps?.let {
-                            adapter.atualiza(ceps = ceps!!)
-                        }
-                    }
-                }
-            } else {
-                Toast.makeText(
-                    this@BuscaPorEnderecoActivity,
-                    "Falha ao buscar CEP. Verifique se os valores inseridos são válidos! ⚠️",
-                    Toast.LENGTH_LONG
-                ).show()
+    private fun configuraBotaoVoltar() {
+        binding.fabVoltarEnd.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun showMessage(message: String?) {
+        lifecycleScope.launch(Main) {
+            Toast.makeText(
+                this@BuscaPorEnderecoActivity,
+                message,
+                Toast.LENGTH_LONG
+            ).show()
+            showLoading(show = false)
+        }
+    }
+
+    private fun atualizaAdapter(cepRespostaList: List<CepResposta>) {
+        lifecycleScope.launch(Main) {
+            viewModel.listCepResposta.value = cepRespostaList.map {
+                it.cepGet
             }
+            viewModel.listCepResposta.value?.let {
+                adapter.atualiza(ceps = it)
+            }
+            showLoading(show = false)
+        }
+    }
+
+    private fun showLoading(show: Boolean) {
+        lifecycleScope.launch(Main) {
+            binding.loading.visibility = if (show) VISIBLE else INVISIBLE
         }
     }
 

@@ -1,9 +1,10 @@
-package rezende.israel.viacep.webclient
+package rezende.israel.viacep.webclient.service
 
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import rezende.israel.viacep.model.Cep
+import rezende.israel.viacep.model.CepResposta
 
 interface CepService {
 
